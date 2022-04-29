@@ -1,6 +1,6 @@
 import pytest
 
-from ipfsspec import IPFSFileSystem  # type: ignore
+from ipfsspec import AsyncIPFSFileSystem  # type: ignore
 from fsspec.implementations.http import HTTPFileSystem
 import xarray as xr
 from zarr.storage import DirectoryStore
@@ -9,7 +9,7 @@ from pathlib import Path
 
 from spatial_image_multiscale import Methods, to_multiscale
 
-IPFS_FS = IPFSFileSystem()
+IPFS_FS = AsyncIPFSFileSystem()
 IPFS_CID = "bafybeict5avtpfe5iyxmpny5qs4mfyuw3xqm6jyuhjzw4sjvydqf5c3w7q"
 DATA_PATH = Path(__file__).absolute().parent / 'data'
 
