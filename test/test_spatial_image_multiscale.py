@@ -18,19 +18,20 @@ DATA_PATH = Path(__file__).absolute().parent / 'data'
 def input_images():
     result = {}
 
-    # store = IPFS_FS.get_mapper(f"ipfs://{IPFS_CID}/input/cthead1.zarr")
-    store = DirectoryStore(
-        DATA_PATH / 'input' / 'cthead1.zarr',
-        dimension_separator='/'
-    )
+    store = IPFS_FS.get_mapper(f"ipfs://{IPFS_CID}/input/cthead1.zarr")
+    # store = DirectoryStore(
+    #     DATA_PATH / 'input' / 'cthead1.zarr',
+    #     dimension_separator='/'
+    # )
     image_ds = xr.open_zarr(store)
     image_da = image_ds.cthead1
     result["cthead1"] = image_da
 
-    store = DirectoryStore(
-        DATA_PATH / 'input' / 'small_head.zarr',
-        dimension_separator='/'
-    )
+    store = IPFS_FS.get_mapper(f"ipfs://{IPFS_CID}/input/small_head.zarr")
+    # store = DirectoryStore(
+    #     DATA_PATH / 'input' / 'small_head.zarr',
+    #     dimension_separator='/'
+    # )
     image_ds = xr.open_zarr(store)
     image_da = image_ds.small_head
     result["small_head"] = image_da
@@ -39,13 +40,13 @@ def input_images():
 
 
 def verify_against_baseline(dataset_name, baseline_name, multiscale):
-    store = DirectoryStore(
-        DATA_PATH / f"baseline/{dataset_name}/{baseline_name}",
-        dimension_separator='/'
-    )
-    # store = IPFS_FS.get_mapper(
-    #     f"ipfs://{IPFS_CID}/baseline/{dataset_name}/{baseline_name}"
+    # store = DirectoryStore(
+    #     DATA_PATH / f"baseline/{dataset_name}/{baseline_name}",
+    #     dimension_separator='/'
     # )
+    store = IPFS_FS.get_mapper(
+        f"ipfs://{IPFS_CID}/baseline/{dataset_name}/{baseline_name}"
+    )
     dt = open_datatree(store, engine="zarr", mode="r")
     xr.testing.assert_equal(dt.ds, multiscale.ds)
     for scale in multiscale.children:
