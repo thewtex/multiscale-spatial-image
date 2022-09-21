@@ -16,7 +16,7 @@ class Methods(Enum):
     XARRAY_COARSEN = "xarray.DataArray.coarsen"
     ITK_BIN_SHRINK = "itk.bin_shrink_image_filter"
     ITK_GAUSSIAN = "itk.discrete_gaussian_image_filter"
-    ITK_LABEL_GAUSSIAN = "itk.discrete_gaussian_image_filter_label_interpolator"
+    ITK_LABEL = "itk.discrete_gaussian_image_filter_label_interpolator"
     DASK_IMAGE_GAUSSIAN = "dask_image.ndfilters.gaussian_filter"
 
 
@@ -87,7 +87,7 @@ def to_multiscale(
         data_objects = _downsample_itk_bin_shrink(current_input, default_chunks, out_chunks, scale_factors, data_objects, image)
     elif method is Methods.ITK_GAUSSIAN:
         data_objects = _downsample_itk_gaussian(current_input, default_chunks, out_chunks, scale_factors, data_objects, image)
-    elif method is Methods.ITK_LABEL_GAUSSIAN:
+    elif method is Methods.ITK_LABEL:
         data_objects = _downsample_itk_label(current_input, default_chunks, out_chunks, scale_factors, data_objects, image)
     elif method is Methods.DASK_IMAGE_GAUSSIAN:
         data_objects = _downsample_dask_image_gaussian(current_input, default_chunks, out_chunks, scale_factors, data_objects, image)

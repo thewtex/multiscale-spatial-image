@@ -42,17 +42,19 @@ def test_gaussian_isotropic_scale_factors(input_images):
     verify_against_baseline(dataset_name, baseline_name, multiscale)
 
 
-def test_label_gaussian_isotropic_scale_factors(input_images):
+def test_label_isotropic_scale_factors(input_images):
     dataset_name = "2th_cthead1"
     image = input_images[dataset_name]
-    baseline_name = "2_4/ITK_LABEL_GAUSSIAN"
-    multiscale = to_multiscale(image, [2, 4], method=Methods.ITK_LABEL_GAUSSIAN)
+    baseline_name = "2_4/ITK_LABEL"
+    multiscale = to_multiscale(image, [2, 4], method=Methods.ITK_LABEL)
+    store_new_image(multiscale, dataset_name, baseline_name)
     verify_against_baseline(dataset_name, baseline_name, multiscale)
 
     dataset_name = "2th_cthead1"
     image = input_images[dataset_name]
-    baseline_name = "2_3/ITK_LABEL_GAUSSIAN"
-    multiscale = to_multiscale(image, [2, 3], method=Methods.ITK_LABEL_GAUSSIAN)
+    baseline_name = "2_3/ITK_LABEL"
+    multiscale = to_multiscale(image, [2, 3], method=Methods.ITK_LABEL)
+    store_new_image(multiscale, dataset_name, baseline_name)
     verify_against_baseline(dataset_name, baseline_name, multiscale)
 
 
@@ -96,12 +98,13 @@ def test_gaussian_anisotropic_scale_factors(input_images):
     verify_against_baseline(dataset_name, baseline_name, multiscale)
 
 
-def test_label_gaussian_anisotropic_scale_factors(input_images):
+def test_label_anisotropic_scale_factors(input_images):
     dataset_name = "2th_cthead1"
     image = input_images[dataset_name]
     scale_factors = [{"x": 2, "y": 4}, {"x": 1, "y": 2}]
-    multiscale = to_multiscale(image, scale_factors, method=Methods.ITK_LABEL_GAUSSIAN)
-    baseline_name = "x2y4_x1y2/ITK_LABEL_GAUSSIAN"
+    multiscale = to_multiscale(image, scale_factors, method=Methods.ITK_LABEL)
+    baseline_name = "x2y4_x1y2/ITK_LABEL"
+    store_new_image(multiscale, dataset_name, baseline_name)
     verify_against_baseline(dataset_name, baseline_name, multiscale)
 
 

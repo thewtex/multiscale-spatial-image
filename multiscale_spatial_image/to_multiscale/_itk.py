@@ -74,8 +74,8 @@ def _itk_blur_and_downsample(xarray_data, gaussian_filter_name, interpolator_nam
 
     if interpolator_name == 'LinearInterpolateImageFunction':
         interpolator_instance = itk.LinearInterpolateImageFunction.New(smoothing_filter.GetOutput())
-    elif interpolator_name == 'LabelImageGaussianInterpolateImageFunction':
-        interpolator_instance = itk.LabelImageGaussianInterpolateImageFunction.New(smoothing_filter.GetOutput())
+    elif interpolator_name == 'LabelImageGenericInterpolateImageFunction':
+        interpolator_instance = itk.LabelImageGenericInterpolateImageFunction.New(smoothing_filter.GetOutput())
         # Similar approach as compute_sigma
         # Ref: https://link.springer.com/content/pdf/10.1007/978-3-319-24571-3_81.pdf
         sigma = [s * 0.7355 for s in output_spacing]
@@ -283,11 +283,11 @@ def _downsample_itk_gaussian(current_input, default_chunks, out_chunks, scale_fa
     return data_objects
 
 def _downsample_itk_label(current_input, default_chunks, out_chunks, scale_factors, data_objects, image):
-    # Uses the LabelImageGaussianInterpolateImageFunction. More appropriate for integer label images.
+    # Uses the LabelImageGenericInterpolateImageFunction. More appropriate for integer label images.
     import itk         
 
     gaussian_filter_name = 'DiscreteGaussianImageFilter'
-    interpolator_name = 'LabelImageGaussianInterpolateImageFunction'
+    interpolator_name = 'LabelImageGenericInterpolateImageFunction'
 
     for factor_index, scale_factor in enumerate(scale_factors):
         dim_factors = _dim_scale_factors(image.dims, scale_factor)
